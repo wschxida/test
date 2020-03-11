@@ -1,0 +1,12 @@
+﻿安装好srapy 然后运行 python3 run.py
+
+
+# kibana看结果 http://192.168.1.231:5601
+
+
+GET sw/doc/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
