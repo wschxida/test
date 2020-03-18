@@ -7,7 +7,7 @@ import time
 def download(youtube_url_list):
     # 定义某些下载参数
     ydl_opts = {
-        'proxy': '127.0.0.1:7777',
+        'proxy': '127.0.0.1:4411',
         'format': 'best',
         'retries': 20,
         'autonumber-start': 2,
@@ -22,15 +22,7 @@ def download(youtube_url_list):
 if __name__ == '__main__':
 
     url_list = [
-        'https://www.xvideos.com/video11174298/_1',
-        'https://www.xvideos.com/video11174355/_2',
-        'https://www.xvideos.com/video11188911/_3',
-        'https://www.xvideos.com/video47880603/_',
-        'https://www.xvideos.com/video26204521/chinese_sex_scandal_with_beautiful_model_3',
-
-
-
-
+        'https://www.youtube.com/watch?v=l34jt6-OlFE',
     ]
 
     totalThread = 10  # 需要创建的线程数，可以控制线程的数量
