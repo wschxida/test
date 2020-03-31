@@ -22,7 +22,7 @@ def download(youtube_url_list):
 if __name__ == '__main__':
 
     url_list = [
-        'https://www.youtube.com/watch?v=l34jt6-OlFE',
+        'https://www.youtube.com/watch?v=3IY9M5jUO_Q',
     ]
 
     totalThread = 10  # 需要创建的线程数，可以控制线程的数量
