@@ -18,7 +18,7 @@ def get_md5(md5str):
 
 # 连接mysql
 config = {
-    'host': '192.168.1.116',
+    'host': '192.168.1.119',
     'port': 3306,
     'user': 'root',
     'passwd': 'poms@db',
