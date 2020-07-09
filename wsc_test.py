@@ -1,20 +1,60 @@
-import socks
-from telethon import TelegramClient
+
+import time
+import json
+from lxml import etree
+from datetime import datetime
+from elasticsearch import Elasticsearch
+import tldextract
+import requests
+import sqlite3
+import re
 
 
-session_name = 'anon'
-api_id = 876492
-api_hash = '56e9d4797c57f43772f9d343e4499846'
-client = TelegramClient(session_name, api_id, api_hash,
-                        proxy=(socks.HTTP, '192.168.1.55', 4411))
+def filter_punctuation(input_str):
+    """
+    过滤标点符号
+    :param input_str:
+    :return:
+    """
+    re_punctuation = re.compile("[`~!@#$^&*()=|｜{}':;',\\[\\].《》<>»/?~！@#￥……&*（）——|{}【】‘；：”“'\"。，、？%+_\r|\n|\\s]")
+    result = re_punctuation.sub('', input_str)
+    result = result.strip()
+    return result
 
 
-async def get_message():
-    username = 'NigeriaMMM'
-    chat_item = await client.get_entity(username)
-    print(chat_item)
+url = 'https://mil.news.sina.com.cn/'
+response = requests.get(url, verify=False)
+response.encoding = 'utf-8'
+text = response.text
+root = etree.HTML(text, parser=etree.HTMLParser(encoding='utf-8'))
+items = root.xpath('//a')
 
+i = 0
+j = 0
+for item in items:
+    j += 1
+    title = "".join(item.xpath('.//text()'))
+    title = filter_punctuation(title)
+    if len(title) > 10:
+        i += 1
+        print(title)
+print(i)
+print(j)
+#
+# conn = sqlite3.connect('test.db')
+#
+# print("Opened database successfully")
+#
+# conn.close()
 
-with client:
-    client.loop.run_until_complete(get_message())
-
+# custom_str_invalid_list = [
+#     '服务指南',
+#     '.+-.+L',
+#     '2D',
+# '踩0',
+# '5座',
+# ]
+# str_source = '局座'
+# invalid_str_pattern = "|".join(custom_str_invalid_list)
+# invalid_str = re.findall(invalid_str_pattern, str_source)
+# print(invalid_str)
