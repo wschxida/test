@@ -10,6 +10,11 @@ import sqlite3
 import re
 import os
 import random
+import pymysql
+import warnings
+
+# 忽略mysql插入时主键重复的警告
+warnings.filterwarnings('ignore')
 
 
 # def filter_punctuation(input_str):
@@ -122,32 +127,65 @@ custom_title_keyword_score_dict = {
 }
 
 
+custom_title_invalid_list = [
+    'javascript',
+    'company',
+    'Part [0-9]+',
+    'About Us'
+]
 
-def get_host_code(url):
-    host_code = ''
-    domain_info = tldextract.extract(url)
-    # print(domain_info)
-    if domain_info.domain:
-        if is_ip(domain_info.domain):
-            host_code = domain_info.domain
-        elif domain_info.suffix:
-            host_code = f"{domain_info.subdomain}.{domain_info.domain}.{domain_info.suffix}"
-            if host_code.find('%') > -1:
-                host_code = ''
-    return host_code.strip('.')
+title = '新闻的 广'
+invalid_title_pattern = "|".join(custom_title_invalid_list)
+invalid_title = re.findall(invalid_title_pattern, title)
 
-
-def is_root_url(url):
-    # 取host_code后面的部分,+1是为了末尾是斜杠‘https://new.qq.com/’这种形式的不扣分
-    host_code = get_host_code(url)
-    _url_remove_host_code = url[url.index(host_code) + len(host_code) + 1:]
-    if len(_url_remove_host_code) > 0:
-        return False
-    else:
-        return True
+custom_url_invalid_list = [
+    '[/.]mall\.51\.ca',
+    '[/.]brasilcn\.com/job/',
+    '/job/'
+]
 
 
-for i in range(10):
-    user_data_dir_list = ['1', '2', '3', '4', '5']
-    random.shuffle(user_data_dir_list)
-    print(user_data_dir_list)
+title = '即时新闻 | 头条推荐 | 新闻时事 | 热点动态 | 爱新闻 newslove.net - 用心聆听身边的大小故事'
+try:
+    title = title.split('-')[0].strip()
+except Exception as e:
+    title = title
+try:
+    title = title.split('_')[0].strip()
+except Exception as e:
+    title = title
+try:
+    title = title.split(',')[0].strip()
+except Exception as e:
+    title = title
+try:
+    title = title.split('，')[0].strip()
+except Exception as e:
+    title = title
+try:
+    title = title.split('|')[0].strip()
+except Exception as e:
+    title = title
+try:
+    title = title.split(' ')[0].strip()
+except Exception as e:
+    title = title
+
+print(title)
+
+url_list = [
+    'https://www.runoob.com/redis/redis-tutorial.html',
+    'https://www.runoob.com/redis/redis-intro.html',
+    'https://www.runoob.com/redis/redis-install.html',
+    'https://www.runoob.com/redis/redis-conf.html',
+    'https://www.runoob.com/redis/redis-data-types.html',
+    'https://www.pythonf.cn/read/101780',
+    'https://www.pythonf.cn/read/139371',
+    'https://www.pythonf.cn/read/139370',
+    'https://www.pythonf.cn/read/139369',
+    'https://www.pythonf.cn/read/139368',
+]
+
+for url in url_list:
+    file = str(url_list.)
+    print(file)
