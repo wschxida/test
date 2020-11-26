@@ -16,29 +16,22 @@ import warnings
 # 忽略mysql插入时主键重复的警告
 warnings.filterwarnings('ignore')
 
+url = 'https://www.bannedbook.org/'
+proxy = {
+    'http': 'http://127.0.0.1:7777',
+    'https': 'http://127.0.0.1:7777',
+}
+headers = {
+                    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36',
+                    # 'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/sig"ned-exchange;v=b3;q=0.9',
+                    # 'accept-encoding': 'gzip, deflate, br',
+                    # 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7',
+                }
 
-def a_new_decorator(a_func):
-    def wrapTheFunction():
-        print("I am doing some boring work before executing a_func()")
+# response = requests.get(url, proxies=proxy, headers=headers)
+# response.encoding = 'utf-8'
+# text = response.text
+# print(text)
 
-        a_func()
-
-        print("I am doing some boring work after executing a_func()")
-
-    return wrapTheFunction
-
-
-def a_function_requiring_decoration():
-    print("I am the function which needs some decoration to remove my foul smell")
-
-
-a_function_requiring_decoration()
-# outputs: "I am the function which needs some decoration to remove my foul smell"
-
-bb = a_new_decorator(a_function_requiring_decoration)
-# now a_function_requiring_decoration is wrapped by wrapTheFunction()
-
-bb()
-# outputs:I am doing some boring work before executing a_func()
-#        I am the function which needs some decoration to remove my foul smell
-#        I am doing some boring work after executing a_func()
+aa = int('' or 0)
+print(aa)

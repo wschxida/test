@@ -15,7 +15,7 @@ tasks = []
 
 
 async def create_page():
-    browser = await launch(headless=True, dumpio=True)
+    browser = await launch(headless=False, dumpio=True)
     return browser
 
 
@@ -30,25 +30,26 @@ async def get_response(screen_file, url, semaphore):
         await page.goto(url)
         title = await page.title()
         print(title)
-        await page.screenshot({'path': screen_file})
+        # await page.screenshot({'path': screen_file})
         # await page.waitFor(2000)
         # await page_close(browser)
         return await page.content()
 
 
 async def run():
-    semaphore = asyncio.Semaphore(5)  # 限制并发量为500
+    semaphore = asyncio.Semaphore(2)  # 限制并发量为500
     url_list = [
         'https://www.runoob.com/redis/redis-tutorial.html',
         'https://www.runoob.com/redis/redis-intro.html',
         'https://www.runoob.com/redis/redis-install.html',
         'https://www.runoob.com/redis/redis-conf.html',
         'https://www.runoob.com/redis/redis-data-types.html',
-        'https://www.pythonf.cn/read/101780',
-        'https://www.pythonf.cn/read/139371',
-        'https://www.pythonf.cn/read/139370',
-        'https://www.pythonf.cn/read/139369',
-        'https://www.pythonf.cn/read/139368',
+        'https://news.sina.com.cn/',
+        'https://news.qq.com/',
+        'http://toutiao.sogou.com/',
+        'https://junshi.china.com/qd/sgkz/top/?1',
+        'https://kan.china.com/qd/sgkzjs/',
+        'https://top.voc.com.cn/sg_xwkz/list/4.html',
     ]
 
     i = 0

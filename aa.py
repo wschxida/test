@@ -3,26 +3,20 @@
 
 import time, json, sys
 import os
+import re
+
+with open('title.txt', 'r', encoding='utf-8') as f:
+    titles = f.readlines()
+
+for i in titles:
+    title = i.replace('\n', '')
+    sql = f"delete from column_link where Website_No='GUOWAI' and title='{title}';"
+    print(sql)
 
 
-class A(object):
-    bar = 1
+url = 'http://www.01-114.com/go.php?http://www.cctv.com/'
 
-    def foo(self):
-        print('foo')
+url = url.replace('/go.php?', '')
+url = url.replace('http://www.01-114.com', '')
+print(url)
 
-    @staticmethod
-    def static_foo():
-        print('static_foo')
-        print(A.bar)
-        print(A.foo())
-
-    @classmethod
-    def class_foo(cls):
-        print('class_foo')
-        print(cls.bar)
-        cls().foo()
-
-
-A.static_foo()
-# A.class_foo()
