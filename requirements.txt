@@ -8,7 +8,7 @@ elasticsearch==7.9.1
 Flask==1.1.2
 flask_script==2.0.6
 jieba==0.42.1
-lxml==4.5.2
+lxml==4.6.2
 matplotlib==3.3.2
 numpy==1.19.2
 parsedatetime==2.6
