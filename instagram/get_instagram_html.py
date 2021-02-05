@@ -25,12 +25,15 @@ def get_ig_html(argv):
             proxy = argv[3]
 
     proxy_list = {'http': 'http://' + proxy, 'https': 'http://' + proxy}
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36',
+    }
 
     try:
         if proxy:
-            response = requests.get(query_url, proxies=proxy_list, timeout=5)
+            response = requests.get(query_url, headers=headers, proxies=proxy_list, timeout=5)
         else:
-            response = requests.get(query_url, timeout=5)
+            response = requests.get(query_url, headers=headers, timeout=5)
         result = response.text
         with open(result_file_name, 'w', encoding="utf-8") as w:
             w.write(result)

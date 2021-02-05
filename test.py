@@ -16,41 +16,44 @@ from lxml import etree
 from lxml.html import fromstring, tostring
 from html.parser import unescape
 
+
+BASE_URL = 'https://www.instagram.com/'
+LOGIN_URL = BASE_URL + 'accounts/login/ajax/'
+LOGOUT_URL = BASE_URL + 'accounts/logout/'
+CHROME_WIN_UA = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
+USER_URL = BASE_URL + '{0}/?__a=1'
+USER_INFO = 'https://i.instagram.com/api/v1/users/{0}/info/'
+STORIES_UA = 'Instagram 123.0.0.21.114 (iPhone; CPU iPhone OS 11_4 like Mac OS X; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/605.1.15'
+
+
 proxies = {
     'http': 'http://127.0.0.1:7777',
     'https': 'http://127.0.0.1:7777'
 }
 headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
-        "Upgrade-Insecure-Requests": "1",
-        "Cache-Control": "max-age=0"
+        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/72.0.3626.121 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7",
+        "Connection": "keep - alive",
     }
-url = 'https://www.facebook.com/pg/DonaldTrump/posts/?ref=page_internal'
-url = 'https://www.facebook.com/moliwyes/posts'
 
-response = requests.get(url, proxies=proxies, headers=headers)
-data = response.text
-# data = clean_html_attr.clean_html_attr(data)
-result_html = etree.HTML(data)
-items = result_html.xpath('//div[contains(@class,"userContentWrapper")]')
+url = 'https://i.instagram.com/api/v1/users/34/info/'
+url = 'https://i.instagram.com/api/v1/users/bill/info/'
 
-content = ''
-for item in items:
-    data = tostring(item, method='html')
-    content = content + unescape(data.decode())
+session = requests.Session()
+"""Authenticate as a guest/non-signed in user"""
+session.headers.update({'Referer': BASE_URL, 'user-agent': STORIES_UA})
+req = session.get(BASE_URL, proxies=proxies)
+session.headers.update({'X-CSRFToken': req.cookies['csrftoken']})
+# session.headers.update({'user-agent': CHROME_WIN_UA})
+rhx_gis = ""
+authenticated = True
+print(req.cookies['csrftoken'])
 
-result_pattern = """
-    <html>
-    <head>
-    <meta charset="utf-8">
-    </head>
-    <body>{}</body>
-    </html>
-    """
-result = result_pattern.format(content)
-
-with open('text.html', 'w', encoding='utf-8') as f:
-    f.write(result)
+response = session.get(url, proxies=proxies, allow_redirects=False)
+response.encoding = 'utf-8'
+text = response.text
+print(text)
 
