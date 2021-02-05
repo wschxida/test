@@ -77,3 +77,7 @@ delete from cloud_listpage_url where domain_code='{domain}';
 '''
 
 print(aa)
+
+title = '第sdfsdf'
+if title.startswith('第') is not True:
+    print(title)
