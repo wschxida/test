@@ -76,31 +76,35 @@ delete from listpage_url where domain_code='{domain}';
 delete from cloud_listpage_url where domain_code='{domain}';
 '''
 
-
-headers = {
-    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
-    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
-    'accept-encoding': 'gzip, deflate',
-    'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAPYXBAAAAAAACLXUNDekMxqa8h%2F40K4moUkGsoc%3DTYfbDKbT3jJPCEVnMYqilB28NHfOPqkca3qaAxGfsyKCs0wRbw',
-    'accept-language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,ar;q=0.6',
-}
-
-url = 'https://api.twitter.com/1.1/guest/activate.json'
-
-response = requests.post(url, headers=headers, proxies=proxies)
-text = response.text
-print(text)
-
-
-def print_1():
-    print(1)
-
-
-def print_2():
-    print(3)
-
-
-print_1()
-print_2()
-print(3)
-print(4)
+#
+# headers = {
+#     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+#     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
+#     'accept-encoding': 'gzip, deflate',
+#     'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAPYXBAAAAAAACLXUNDekMxqa8h%2F40K4moUkGsoc%3DTYfbDKbT3jJPCEVnMYqilB28NHfOPqkca3qaAxGfsyKCs0wRbw',
+#     'accept-language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,ar;q=0.6',
+# }
+#
+# url = 'https://api.twitter.com/1.1/guest/activate.json'
+#
+# response = requests.post(url, headers=headers, proxies=proxies)
+# text = response.text
+# print(text)
+#
+#
+# def print_1():
+#     print(1)
+#
+#
+# def print_2():
+#     print(3)
+#
+#
+# print_1()
+# print_2()
+# print(3)
+# print(4)
+#
+aa = [1, 2, 4]
+aa.pop()
+print(aa)
