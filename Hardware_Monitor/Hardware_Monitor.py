@@ -1,10 +1,10 @@
-# coding=utf8
+# -*- coding: UTF-8 -*-
 import psutil
 import time
 from datetime import datetime
 import json
 import os
-import pymysql
+import sys, getopt
 
 
 # 获取网卡名称和其ip地址，不包括回环
@@ -13,7 +13,7 @@ def get_netcard():
     info = psutil.net_if_addrs()
     for k, v in info.items():
         for item in v:
-            if item[0] == 2 and '192.168.1.' in item[1]:
+            if item[0] == 2 and '192.168.' in item[1]:
                 netcard_info.append((k, item[1]))
     return netcard_info
 
@@ -105,7 +105,21 @@ def get_net_usage():
     return net_usages
 
 
-if __name__ == '__main__':
+def main(argv):
+    output_file = None
+    try:
+        opts, args = getopt.getopt(argv, "ho:", ["ofile="])
+    except getopt.GetoptError:
+        print('Hardware_Monitor.py -o <output_file>')
+        # sys.exit(1)
+    for opt, arg in opts:
+        if opt == '-h':
+            print('Hardware_Monitor.py -o <output_file>')
+            # sys.exit()
+        elif opt in ("-o", "--ofile"):
+            output_file = arg
+            print(output_file)
+
     try:
         ip = get_netcard()[0][1]
         cpu_info = get_cpu_info()
@@ -120,61 +134,19 @@ if __name__ == '__main__':
         # 记录到file
         curpath = os.path.dirname(os.path.realpath(__file__))
         file_name = curpath + '/' + ip + '.txt'
+        if output_file:
+            file_name = output_file
         fl = open(file_name, 'w', encoding='utf-8')
         fl.write(json_result)
         fl.close()
 
-        # # 复制文件到184
-        # source_filename = file_name
-        # destination_filename = "\\\\184\\kwm\\Common\\Server_Monitor\\Node_Monitor_OS\\Hardware_Status_All_Result\\" + file_name
-        # copy_command = 'cp %s %s' % (source_filename, destination_filename)
-        # os.popen(copy_command)
-
-        # 连接mysql
-        config = {
-            'host': '192.168.1.118',
-            'port': 3306,
-            'user': 'root',
-            'passwd': 'poms@db',
-            'db': 'mymonitor',
-            'charset': 'utf8mb4',
-            'cursorclass': pymysql.cursors.DictCursor
-        }
-        conn = pymysql.connect(**config)
-        conn.autocommit(1)
-        # 使用cursor()方法获取操作游标
-        cur = conn.cursor()
-
-        # 1.查询操作
-        # 编写sql 查询语句
-        node_id = int(result["ip"].split('.')[-1]) - 100
-        monitor_time = result["time"]
-        Executor_Count = result["executor_count"]["executor"]
-        CPU_Count = result["cpu_info"]["count"]
-        CPU_Percent = result["cpu_info"]["usage_percent"]
-        Memory_Size = result["mem_info"]["total"]
-        Memory_Percent = result["mem_info"]["usage_percent"]
-        Network_Count = len(result["net_usage"])
-        Network_Percent = result["net_usage"][0]["usage_percent"]
-        Sys_Drive_Free_M = result["disk_info"][0]["free"]
-        Sys_Drive_Free_Percent = result["disk_info"][0]["percent"]
-        Drive_Free_Space_JSON = result['disk_info']
-        Drive_Free_Space_JSON = json.dumps(Drive_Free_Space_JSON, ensure_ascii=False)
-
-        sql = "insert into node_monitor_os(node_id, monitor_time, Executor_Count, CPU_Count, CPU_Percent, Memory_Size, " \
-              "Memory_Percent,Network_Count, Network_Percent,Sys_Drive_Free_M, Sys_Drive_Free_Percent, Drive_Free_Space_JSON) " \
-              "values({}, '{}', {}, {}, {}, {}, {}, {}, {}, {}, {}, '{}');" \
-            .format(node_id, monitor_time, Executor_Count, CPU_Count, CPU_Percent, Memory_Size, Memory_Percent,
-                    Network_Count, Network_Percent, Sys_Drive_Free_M, Sys_Drive_Free_Percent, Drive_Free_Space_JSON)
-        # print(sql)
-        try:
-            cur.execute(sql)
-        except Exception as e:
-            print(e)
-        conn.close()
-
     except Exception as e:
         print(e)
+
+
+if __name__ == '__main__':
+    main(sys.argv[1:])
+
 
 
 

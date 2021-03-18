@@ -105,6 +105,14 @@ delete from cloud_listpage_url where domain_code='{domain}';
 # print(3)
 # print(4)
 #
-aa = [1, 2, 4]
-aa.pop()
-print(aa)
+
+import re
+
+
+url = 'https://video.kuaishou.com/hashtag/%E7%BD%97%E5%BF%97%E7%A5%A5'
+res = requests.get(url)
+text = res.text
+print(text)
+
+
+
