@@ -85,9 +85,9 @@ delete from cloud_listpage_url where domain_code='{domain}';
 #     'accept-language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,ar;q=0.6',
 # }
 #
-# url = 'https://api.twitter.com/1.1/guest/activate.json'
+# url = 'http://www.whoopture.com/news/20200930/503895.html'
 #
-# response = requests.post(url, headers=headers, proxies=proxies)
+# response = requests.get(url)
 # text = response.text
 # print(text)
 #
@@ -106,13 +106,13 @@ delete from cloud_listpage_url where domain_code='{domain}';
 # print(4)
 #
 
-import re
+user_data_dir_number = '208'
+_number = int(user_data_dir_number)
+if _number <= 100:
+    user_data_dir = '/home/kismanager/KIS/selenium/Facebook/Fetch/AutomationProfile' + str(_number)
+if 100 < _number <= 200:
+    user_data_dir = '/home/kismanager/KIS/selenium/Facebook/Monitor/AutomationProfile' + str(_number)
+if _number > 200:
+    user_data_dir = '/home/kismanager/KIS/selenium/Facebook/NotLogin/AutomationProfile' + str(_number)
 
-
-url = 'https://video.kuaishou.com/hashtag/%E7%BD%97%E5%BF%97%E7%A5%A5'
-res = requests.get(url)
-text = res.text
-print(text)
-
-
-
+print(user_data_dir)
