@@ -9,7 +9,7 @@
 import youtube_dl
 import threading
 import time
-import xvideos
+# import xvideos
 
 
 def start_download(youtube_url_list):
@@ -31,8 +31,15 @@ def start_download(youtube_url_list):
 
 if __name__ == '__main__':
 
-    url_list = []
-    url_list = xvideos.result
+    url_list = [
+        'https://www.xvideos.com/video43778969/china_sauna_full_service_-_grey_tank_top',
+        'https://www.xvideos.com/video44108321/china_sauna_full_service_-_young_graduate',
+        'https://www.xvideos.com/video32840283/sauna_vip_full_service_massage',
+        'https://www.xvideos.com/video43863633/china_sauna_full_service_-_lisa',
+        'https://www.xvideos.com/video23359374/_',
+
+    ]
+    # url_list = xvideos.result
     print(len(url_list))
 
     totalThread = 50  # 需要创建的线程数，可以控制线程的数量

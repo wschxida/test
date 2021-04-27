@@ -64,17 +64,64 @@ proxies = {
 #
 # print(author_id)
 
-domain = 'drugs.com'
-aa = f'''
-delete from column_link_oversea where domain_code='{domain}';
-delete from column_link where domain_code='{domain}';
-delete from listpage_url_check where domain_code='{domain}';
-delete from new_listpage_url where domain_code='{domain}';
-delete from new_listpage_url_cache where domain_code='{domain}';
+# domain = 'drugs.com'
+# aa = f'''
+# delete from column_link_oversea where domain_code='{domain}';
+# delete from column_link where domain_code='{domain}';
+# delete from listpage_url_check where domain_code='{domain}';
+# delete from new_listpage_url where domain_code='{domain}';
+# delete from new_listpage_url_cache where domain_code='{domain}';
+#
+# delete from listpage_url where domain_code='{domain}';
+# delete from cloud_listpage_url where domain_code='{domain}';
+# '''
+#
+# domain_list = ['powerchina.cn',
+# 'aktivteck.com',
+# 'zsdgsb.com',
+# 'sampledrops.com',
+# 'kdx35.com',
+# 'suanxion.com',
+# '5awx.cc',
+# '05188.com',
+# 'liptool.com',
+# 'jrlady.cn',
+# 'youabc.cn',
+# 'cnncw.cn',
+# 'geonet.cn',
+# 'harbin123.com',
+# 'zhongguojie.org',
+# 'txwnx.com',
+# '86516.com',
+# 'jining666.com',
+# 'qjczp.com',
+# 'cnsccj.com',
+# 'cplec.com',
+# 'cvmkr.com',
+# 'page.net.cn',
+# 'freebaidu.cn',
+# 'jsygc.com',
+# 'weixintouxiang.cn',
+# 'freebaidu.cn',
+# 'jnrcw.net',
+# 'baixing.com',
+# 'dinakaufman.com',
+# 'guandang.net',
+# 'xuehai.net',
+# 'jljxcfsb.com',
+# 'gyxww.cn',
+# 'ygxnk.com',
+# 'stcpnyinger.com',
+# 'guaiju5.cn',
+# 'qingdao666.com'
+# ]
+#
+# for domain in domain_list:
+#     aa = f'''
+#     delete from cloud_listpage_url where domain_code like'%{domain}';
+#     '''
+#     print(aa)
 
-delete from listpage_url where domain_code='{domain}';
-delete from cloud_listpage_url where domain_code='{domain}';
-'''
 
 #
 # headers = {
@@ -106,13 +153,22 @@ delete from cloud_listpage_url where domain_code='{domain}';
 # print(4)
 #
 
-user_data_dir_number = '208'
-_number = int(user_data_dir_number)
-if _number <= 100:
-    user_data_dir = '/home/kismanager/KIS/selenium/Facebook/Fetch/AutomationProfile' + str(_number)
-if 100 < _number <= 200:
-    user_data_dir = '/home/kismanager/KIS/selenium/Facebook/Monitor/AutomationProfile' + str(_number)
-if _number > 200:
-    user_data_dir = '/home/kismanager/KIS/selenium/Facebook/NotLogin/AutomationProfile' + str(_number)
 
-print(user_data_dir)
+
+class Kls(object):
+    no_inst = 0
+    def __init__(self):
+        Kls.no_inst = Kls.no_inst + 1
+    @classmethod
+    def get_no_of_instance(ass):
+        return ass.no_inst
+
+print(Kls.get_no_of_instance())
+ik1 = Kls()
+print(Kls.get_no_of_instance())
+print(ik1.get_no_of_instance())
+ik2 = Kls()
+print(Kls.get_no_of_instance())
+print(ik1.get_no_of_instance())
+print(ik2.get_no_of_instance())
+
