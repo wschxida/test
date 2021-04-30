@@ -154,21 +154,22 @@ proxies = {
 #
 
 
+class A(type):
+    def __new__(cls, name, bases, dct):  # 注意第一个参数是cls而不是self
+        print('create class %s' % name)
+        return type.__new__(cls, name, bases, dct)
 
-class Kls(object):
-    no_inst = 0
-    def __init__(self):
-        Kls.no_inst = Kls.no_inst + 1
-    @classmethod
-    def get_no_of_instance(ass):
-        return ass.no_inst
+    def __init__(cls, name, bases, dct):
+        print('Init class %s' % name)
+        type.__init__(cls, name, bases, dct)
 
-print(Kls.get_no_of_instance())
-ik1 = Kls()
-print(Kls.get_no_of_instance())
-print(ik1.get_no_of_instance())
-ik2 = Kls()
-print(Kls.get_no_of_instance())
-print(ik1.get_no_of_instance())
-print(ik2.get_no_of_instance())
+
+class B(metaclass=type):
+    def b(self):
+        print('b')
+
+
+ins_1 = B()
+ins_1.b()
+
 
