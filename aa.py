@@ -152,24 +152,28 @@ proxies = {
 # print(3)
 # print(4)
 #
+#
+#
+# class A(type):
+#     def __new__(cls, name, bases, dct):  # 注意第一个参数是cls而不是self
+#         print('create class %s' % name)
+#         return type.__new__(cls, name, bases, dct)
+#
+#     def __init__(cls, name, bases, dct):
+#         print('Init class %s' % name)
+#         type.__init__(cls, name, bases, dct)
+#
+#
+# class B(metaclass=type):
+#     def b(self):
+#         print('b')
+#
+#
+# ins_1 = B()
+# ins_1.b()
 
 
-class A(type):
-    def __new__(cls, name, bases, dct):  # 注意第一个参数是cls而不是self
-        print('create class %s' % name)
-        return type.__new__(cls, name, bases, dct)
+request_params = {"token": 1}
+token_input = {}.get("token", None)
 
-    def __init__(cls, name, bases, dct):
-        print('Init class %s' % name)
-        type.__init__(cls, name, bases, dct)
-
-
-class B(metaclass=type):
-    def b(self):
-        print('b')
-
-
-ins_1 = B()
-ins_1.b()
-
-
+print(token_input)

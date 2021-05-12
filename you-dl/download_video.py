@@ -21,7 +21,7 @@ def start_download(youtube_url_list):
             'retries': 20,
             'autonumber-start': 2,
             'ignore-errors': '',
-            'outtmpl': 'D:\youtube-dl\\' + '%(title)s.%(ext)s',
+            'outtmpl': 'E:\\youtube-dl\\' + '%(title)s.%(ext)s',
         }
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             ydl.download(youtube_url_list)
