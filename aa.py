@@ -172,8 +172,11 @@ proxies = {
 # ins_1 = B()
 # ins_1.b()
 
+import time
+import datetime
 
-request_params = {"token": 1}
-token_input = {}.get("token", None)
 
-print(token_input)
+cur_timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+
+
+print(cur_timestamp)
