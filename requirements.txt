@@ -32,3 +32,5 @@ bs4~=0.0.1
 pyppeteer~=0.2.2
 python-dateutil~=2.8.1
 stem~=1.8.0
+gevent~=21.1.2
+itsdangerous~=1.1.0

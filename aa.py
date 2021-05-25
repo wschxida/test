@@ -172,11 +172,10 @@ proxies = {
 # ins_1 = B()
 # ins_1.b()
 
-import time
-import datetime
+with open("title.txt", "r") as f:
+    txt = f.readlines()
+    author_list = [i.replace("\n", "") for i in txt]
+print(author_list)
 
-
-cur_timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
-
-
-print(cur_timestamp)
+for author in author_list:
+    print(f"select * from fecth_task where target_express like'{author}%';")
